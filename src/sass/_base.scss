@@ -1,0 +1,54 @@
+:root {
+  // COLORS
+  --color-white: #fff;
+}
+
+/* RESET */
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+  /*every element will automatically inherit the body's box-sizing*/
+}
+
+// this combination prevent the page from sliding to the sides when the content is overflowing for some reason
+html,
+body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+html {
+  // This defines what 1rem is
+  font-size: 62.5%; //1 rem = 10px; 10px/16px = 62.5%
+
+  @include respond(tab-land) {
+    // width < 1200?
+    font-size: 56.25%; //1 rem = 9px, 9/16 = 50%
+  }
+
+  @include respond(tab-port) {
+    // width < 900?
+    font-size: 50%; //1 rem = 8px, 8/16 = 50%
+  }
+
+  @include respond(big-desktop) {
+    font-size: 75%; //1rem = 12, 12/16
+  }
+  box-sizing: border-box;
+}
+
+body {
+  box-sizing: border-box;
+  position: relative;
+  font-family: 'Open Sans Condensed', sans-serif;
+}
+
+// .container {
+//   background-color: var(--color-purple-background);
+//   display: grid;
+//   grid-template-rows: 15rem 70rem 30rem 40rem 20rem 95rem 60vw 120rem 30rem 85rem 15rem;
+//   color: var(--color-black-text);
+// }
