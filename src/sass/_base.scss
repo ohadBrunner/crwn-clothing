@@ -47,9 +47,7 @@ body {
   padding: 3rem 10rem;
 }
 
-// .container {
-//   background-color: var(--color-purple-background);
-//   display: grid;
-//   grid-template-rows: 15rem 70rem 30rem 40rem 20rem 95rem 60vw 120rem 30rem 85rem 15rem;
-//   color: var(--color-black-text);
-// }
+a {
+  text-decoration: none;
+  color: black;
+}
