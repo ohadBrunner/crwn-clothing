@@ -1,6 +1,10 @@
 :root {
   // COLORS
   --color-white: #fff;
+  --color-grey: grey;
+  --color-black: black;
+  --color-google-blue: #4285f4;
+  --color-google-blue-darker: #357ae8;
 }
 
 /* RESET */
@@ -9,7 +13,8 @@
 *::before {
   margin: 0;
   padding: 0;
-  box-sizing: inherit;
+  box-sizing: border-box;
+  // box-sizing: inherit;
   /*every element will automatically inherit the body's box-sizing*/
 }
 

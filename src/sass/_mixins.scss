@@ -41,3 +41,9 @@
     clear: both;
   }
 }
+
+@mixin shrinkLabel {
+  top: -14px;
+  font-size: 12px;
+  color: var(--color-black);
+}
