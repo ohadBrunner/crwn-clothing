@@ -7,7 +7,7 @@ import HomePage from './pages/homepage/homepage.component';
 import ShopPage from './pages/shop/shop.component';
 import SignInSignUp from './pages/sign-in-sign-up/sign-in-sign-up.component';
 import Header from './components/header.component';
-import { auth } from './firebase/firebase.utils';
+import { auth, createUserProfileDocument } from './firebase/firebase.utils';
 
 class App extends Component {
   constructor() {
@@ -22,9 +22,23 @@ class App extends Component {
 
   componentDidMount() {
     // we always want to know when firebase realized that the auth state has changed (new user has signed up using email/google for example)
-    this.unsubscribeFromAuth = auth.onAuthStateChanged(user => {
-      this.setState({ currentUser: user });
-      console.log(user);
+    this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
+      if (userAuth) {
+        const userRef = await createUserProfileDocument(userAuth);
+        // after saving the user to firebase we want to do the same in our state
+        userRef.onSnapshot(snapShot => {
+          this.setState({
+            currentUser: {
+              id: snapShot.id,
+              ...snapShot.data(),
+            },
+          });
+          console.log(this.state);
+        });
+        console.log(this.state.currentUser);
+      }
+      // in case it's null
+      this.setState({ currentUser: userAuth });
     });
   }
 
