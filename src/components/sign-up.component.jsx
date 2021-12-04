@@ -22,13 +22,15 @@ class SignUp extends Component {
   handleSubmit = async event => {
     event.preventDefault();
 
+    // populate the state with the user's input
     const { displayName, email, password, confirmPassword } = this.state;
 
+    // check password confirmation
     if (password !== confirmPassword) {
       alert("password don't match");
       return;
     }
-
+    // create new user and push to firebase
     try {
       const { user } = await auth.createUserWithEmailAndPassword(
         email,
@@ -36,7 +38,7 @@ class SignUp extends Component {
       );
 
       createUserProfileDocument(user, { displayName });
-
+      // clean up the state
       this.setState({
         displayName: '',
         email: '',

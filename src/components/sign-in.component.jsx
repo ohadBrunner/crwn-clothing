@@ -20,21 +20,26 @@ class SignIn extends Component {
   handleSubmit = async event => {
     event.preventDefault();
 
+    // getting what the user typed in
     const { email, password } = this.state;
 
     try {
+      // checking those details to see if firebase know this user
       await auth.signInWithEmailAndPassword(email, password);
+      // clean up the state
       this.setState({ email: '', password: '' });
     } catch (error) {
       console.log(error);
     }
-
+    // clean up the state regardless of success/failure
     this.setState({ email: '', password: '' });
   };
 
   handleChange = event => {
+    // getting the current values from the input fields
     const { value, name } = event.target;
 
+    // setting those values to the state
     this.setState({ [name]: value });
   };
 
@@ -64,7 +69,11 @@ class SignIn extends Component {
 
           <div className="buttons">
             <CustomButton type="submit">Sign in</CustomButton>
-            <CustomButton onClick={signInWithGoogle} isGoogleSignIn>
+            <CustomButton
+              type="button"
+              onClick={signInWithGoogle}
+              isGoogleSignIn
+            >
               Sign in with Google
             </CustomButton>
           </div>
