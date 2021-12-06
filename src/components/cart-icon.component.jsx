@@ -7,6 +7,7 @@ import { ReactComponent as ShoppingIcon } from '../assests/shopping-bag.svg';
 
 import '../sass/app.scss';
 
+// no need to get toggleCartHidden as a prop cause it's just a function (always the same...)
 const CartIcon = ({ toggleCartHidden }) => (
   <div className="cart-icon" onClick={toggleCartHidden}>
     <ShoppingIcon className="shopping-icon" />
