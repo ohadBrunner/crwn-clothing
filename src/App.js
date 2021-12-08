@@ -1,15 +1,19 @@
 import React, { Component } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
 
 import './sass/app.scss';
 
 import HomePage from './pages/homepage/homepage.component';
 import ShopPage from './pages/shop/shop.component';
 import SignInSignUp from './pages/sign-in-sign-up/sign-in-sign-up.component';
+import CheckoutPage from './pages/checkout/checkout.component';
+
 import Header from './components/header.component';
 import { auth, createUserProfileDocument } from './firebase/firebase.utils';
 import { setCurrentUser } from './redux/user/user.actions';
+import { selectCurrentUser } from './redux/user/user.selectors';
 
 class App extends Component {
   unsubscribeFromAuth = null; // helps us closing the connecetion to the current user
@@ -46,6 +50,7 @@ class App extends Component {
         <Switch>
           <Route exact path="/" component={HomePage} />
           <Route path="/shop" component={ShopPage} />
+          <Route exact path="/checkout" component={CheckoutPage} />s
           <Route
             exact
             path="/signin"
@@ -59,8 +64,8 @@ class App extends Component {
   }
 }
 
-const mapStateToProps = ({ user }) => ({
-  currentUser: user.currentUser,
+const mapStateToProps = createStructuredSelector({
+  currentUser: selectCurrentUser,
 });
 
 // mapDispatchToProps is used for dispatching actions to the store. it lets us create the setCurrentUser function which is now a prop of our App component

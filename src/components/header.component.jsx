@@ -1,10 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
 
 import { auth } from '../firebase/firebase.utils';
 import CartIcon from './cart-icon.component';
 import CartDropdown from './cart-dropdown.component';
+import { selectCartHidden } from '../redux/cart/cart.selectors';
+import { selectCurrentUser } from '../redux/user/user.selectors';
 
 import { ReactComponent as Logo } from '../assests/crown.svg'; // special syntax for importing SVG in React
 
@@ -40,9 +43,9 @@ const Header = ({ currentUser, hidden }) => (
 );
 
 // state is the root-reducer. mapStateToProps gives back an object which merges into the Header's props
-const mapStateToProps = ({ user: { currentUser }, cart: { hidden } }) => ({
-  currentUser,
-  hidden,
+const mapStateToProps = createStructuredSelector({
+  currentUser: selectCurrentUser,
+  hidden: selectCartHidden,
 });
 
 // connect wrapps the Header component which is now susbscribed to updaates from the redux store
