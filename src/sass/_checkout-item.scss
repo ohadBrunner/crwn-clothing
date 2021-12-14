@@ -7,6 +7,10 @@
   font-size: 20px;
   align-items: center;
 
+  @include respond(crwn-800) {
+    font-size: 18px;
+  }
+
   .image-container {
     width: 23%;
     padding-right: 15px;
@@ -20,6 +24,10 @@
   .quantity,
   .price {
     width: 23%;
+
+    @include respond(crwn-800) {
+      width: 30%;
+    }
   }
 
   .quantity {

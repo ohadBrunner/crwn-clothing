@@ -14,7 +14,6 @@ import Header from './components/header.component';
 import { auth, createUserProfileDocument } from './firebase/firebase.utils';
 import { setCurrentUser } from './redux/user/user.actions';
 import { selectCurrentUser } from './redux/user/user.selectors';
-// import { selectCollectionsForPreview } from './redux/shop/shop.selectors';
 
 class App extends Component {
   unsubscribeFromAuth = null; // helps us closing the connecetion to the current user
@@ -27,7 +26,6 @@ class App extends Component {
       if (userAuth) {
         const userRef = await createUserProfileDocument(userAuth);
         // after saving the user to firebase we want to do the same in our state
-        // whenever the value of the currentUser updates somehow it will pass a snap shot that will trigger setCurrentUser
         userRef.onSnapshot(snapShot => {
           setCurrentUser({
             id: snapShot.id,
@@ -42,7 +40,7 @@ class App extends Component {
 
   // This way we make sure we don't get any memory leak
   componentWillUnmount() {
-    this.unsubscribeFromAuth(); // cancel the subscription between the observer and the observables
+    this.unsubscribeFromAuth();
   }
 
   render() {

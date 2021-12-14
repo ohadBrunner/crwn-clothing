@@ -50,6 +50,10 @@ body {
   position: relative;
   font-family: 'Open Sans Condensed', sans-serif;
   padding: 3rem 10rem;
+
+  @include respond(crwn-800) {
+    padding: 10px;
+  }
 }
 
 a {

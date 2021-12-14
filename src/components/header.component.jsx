@@ -1,5 +1,5 @@
 import React from 'react';
-// import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
@@ -11,33 +11,32 @@ import { selectCurrentUser } from '../redux/user/user.selectors';
 
 import { ReactComponent as Logo } from '../assests/crown.svg'; // special syntax for importing SVG in React
 
-import {
-  HeaderContainer,
-  LogoContainer,
-  OptionsContainer,
-  OptionDiv,
-  OptionLink,
-} from '../styled-components/header.styles';
+import '../sass/app.scss';
 
 const Header = ({ currentUser, hidden }) => (
-  <HeaderContainer>
-    <LogoContainer to="/">
+  <div className="header">
+    <Link className="logo-container" to="/">
       <Logo className="logo" />
-    </LogoContainer>
-    <OptionsContainer>
-      <OptionLink to="/shop">SHOP</OptionLink>
-      <OptionLink to="/shop">CONTACT</OptionLink>
+    </Link>
+    <div className="options">
+      <Link className="option" to="/shop">
+        SHOP
+      </Link>
 
       {currentUser ? (
         //checking wheter there is a user signed in
-        <OptionDiv onClick={() => auth.signOut()}>SIGN OUT</OptionDiv>
+        <div className="option" onClick={() => auth.signOut()}>
+          SIGN OUT
+        </div>
       ) : (
-        <OptionLink to="/signin">SIGN IN</OptionLink>
+        <Link className="option" to="/signin">
+          SIGN IN
+        </Link>
       )}
       <CartIcon />
-    </OptionsContainer>
+    </div>
     {hidden ? null : <CartDropdown />}
-  </HeaderContainer>
+  </div>
 );
 
 // state is the root-reducer. mapStateToProps gives back an object which merges into the Header's props

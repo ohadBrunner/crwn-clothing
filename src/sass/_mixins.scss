@@ -9,6 +9,13 @@
       @content;
     } //600px
   }
+
+  @if $breakpoint == crwn-800 {
+    @media only screen and (max-width: 50em) {
+      @content;
+    } //800px
+  }
+
   @if $breakpoint == tab-port {
     @media only screen and (max-width: 56.25em) {
       @content;

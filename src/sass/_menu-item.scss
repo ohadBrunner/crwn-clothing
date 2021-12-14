@@ -9,6 +9,10 @@
   margin: 0 7.5px 15px;
   overflow: hidden;
 
+  @include respond(crwn-800) {
+    height: 200px;
+  }
+
   &:hover {
     cursor: pointer;
 
@@ -24,6 +28,10 @@
 
   &.large {
     height: 45rem;
+
+    @include respond(crwn-800) {
+      height: 200px;
+    }
   }
 
   &:first-child {
@@ -51,6 +59,10 @@
     background-color: var(--color-white);
     opacity: 0.7;
     position: absolute;
+
+    @include respond(crwn-800) {
+      padding: 0 12px;
+    }
 
     .title {
       font-weight: bold;
