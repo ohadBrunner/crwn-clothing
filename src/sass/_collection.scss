@@ -15,5 +15,10 @@
     & .collection-item {
       margin-bottom: 30px;
     }
+
+    @include respond(crwn-800) {
+      grid-template-columns: 1fr 1fr;
+      grid-gap: 15px;
+    }
   }
 }
