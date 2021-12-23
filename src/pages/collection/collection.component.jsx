@@ -19,8 +19,9 @@ const Collection = ({ collection }) => {
     </div>
   );
 };
-
+// own props -> match,history,location...
 const mapStateToProps = (state, ownProps) => ({
+  // we are giving the state to the function selectCollection returns!
   // this is necessary bacause unlike other selectors, this selector needs a part of the state depending on the URL parameter. selectCollection returns createSelector...
   collection: selectCollection(ownProps.match.params.collectionId)(state),
 });

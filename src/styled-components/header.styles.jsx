@@ -1,6 +1,7 @@
 import styled, { css } from 'styled-components';
 import { Link } from 'react-router-dom';
 
+// reusable chunk of css we need in different kind of elements
 const OptionsContainerStyles = css`
   padding: 10px 15px;
   cursor: pointer;
