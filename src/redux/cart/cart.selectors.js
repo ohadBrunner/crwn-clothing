@@ -1,5 +1,4 @@
 import { createSelector } from 'reselect';
-// import CartItem from '../../components/cart-item.component';
 
 // the reference to state is propagated from selectCartItemsCount
 const selectCart = state => state.cart;

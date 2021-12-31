@@ -3,43 +3,26 @@ import { Switch, Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
-import './sass/app.scss';
+import './App.css';
 
 import HomePage from './pages/homepage/homepage.component';
 import ShopPage from './pages/shop/shop.component';
-import SignInSignUp from './pages/sign-in-sign-up/sign-in-sign-up.component';
+import SignInAndSignUpPage from './pages/sign-in-and-sign-up/sign-in-and-sign-up.component';
 import CheckoutPage from './pages/checkout/checkout.component';
 
-import Header from './components/header.component';
-import { auth, createUserProfileDocument } from './firebase/firebase.utils';
-import { setCurrentUser } from './redux/user/user.actions';
+import Header from './components/header/header.component';
+
 import { selectCurrentUser } from './redux/user/user.selectors';
-// import { selectCollectionsForPreview } from './redux/shop/shop.selectors';
+import { checkUserSession } from './redux/user/user.actions';
 
 class App extends React.Component {
-  unsubscribeFromAuth = null; // helps us closing the connecetion to the current user
+  unsubscribeFromAuth = null;
 
   componentDidMount() {
-    const { setCurrentUser } = this.props;
-
-    // we always want to know when firebase realized that the auth state has changed (new user has signed up using email/google for example)
-    this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
-      if (userAuth) {
-        const userRef = await createUserProfileDocument(userAuth);
-        // after saving the user to firebase we want to do the same in our state
-        userRef.onSnapshot(snapShot => {
-          setCurrentUser({
-            id: snapShot.id,
-            ...snapShot.data(),
-          });
-        });
-      }
-      // in case it's null
-      setCurrentUser(userAuth);
-    });
+    const { checkUserSession } = this.props;
+    checkUserSession();
   }
 
-  // This way we make sure we don't get any memory leak
   componentWillUnmount() {
     this.unsubscribeFromAuth();
   }
@@ -49,14 +32,18 @@ class App extends React.Component {
       <div>
         <Header />
         <Switch>
-          <Route exact path="/" component={HomePage} />
-          <Route path="/shop" component={ShopPage} />
-          <Route exact path="/checkout" component={CheckoutPage} />
+          <Route exact path='/' component={HomePage} />
+          <Route path='/shop' component={ShopPage} />
+          <Route exact path='/checkout' component={CheckoutPage} />
           <Route
             exact
-            path="/signin"
+            path='/signin'
             render={() =>
-              this.props.currentUser ? <Redirect to="/" /> : <SignInSignUp />
+              this.props.currentUser ? (
+                <Redirect to='/' />
+              ) : (
+                <SignInAndSignUpPage />
+              )
             }
           />
         </Switch>
@@ -66,12 +53,14 @@ class App extends React.Component {
 }
 
 const mapStateToProps = createStructuredSelector({
-  currentUser: selectCurrentUser,
+  currentUser: selectCurrentUser
 });
 
-// mapDispatchToProps is used for dispatching actions to the store. it lets us create the setCurrentUser function which is now a prop of our App component
 const mapDispatchToProps = dispatch => ({
-  setCurrentUser: user => dispatch(setCurrentUser(user)),
+  checkUserSession: () => dispatch(checkUserSession())
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(App);
