@@ -1,5 +1,6 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
+import { useParams } from 'react-router';
 
 import CollectionItem from '../../components/collection-item/collection-item.component';
 
@@ -11,7 +12,9 @@ import {
   CollectionItemsContainer,
 } from './collection.styles';
 
-const CollectionPage = ({ collection }) => {
+const CollectionPage = () => {
+  const { collectionId } = useParams();
+  const collection = useSelector(selectCollection(collectionId)); // selectCollection return a new selector...
   const { title, items } = collection;
   return (
     <CollectionPageContainer>
@@ -25,11 +28,4 @@ const CollectionPage = ({ collection }) => {
   );
 };
 
-// own props -> match,history,location...
-const mapStateToProps = (state, ownProps) => ({
-  // we are giving the state to the function selectCollection returns!
-  // this is necessary bacause unlike other selectors, this selector needs a part of the state depending on the URL parameter. selectCollection returns createSelector...
-  collection: selectCollection(ownProps.match.params.collectionId)(state),
-});
-
-export default connect(mapStateToProps)(CollectionPage);
+export default CollectionPage;
